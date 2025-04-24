@@ -1,11 +1,11 @@
-import express from "express";
+import express from 'express'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { connectToDatabase } from './config/mongoose.js'
 
 try {
   // Connect to MongoDB.
-  //await connectToDatabase(process.env.DB_CONNECTION_STRING)
+  // await connectToDatabase(process.env.DB_CONNECTION_STRING)
 
   // Creates an Express application.
   const app = express()
@@ -42,13 +42,10 @@ try {
   // Serve static files.
   app.use(express.static(join(directoryFullName, '..', 'public')))
 
-    // ---------------------------------------------------
-    // ⚠️ WARNING: Development Environment Only!
-    //             Detailed error information is provided.
-    // ---------------------------------------------------
-
-
-
+  // ---------------------------------------------------
+  // ⚠️ WARNING: Development Environment Only!
+  //             Detailed error information is provided.
+  // ---------------------------------------------------
 
   // Starts the HTTP server listening for connections.
   const server = app.listen(process.env.PORT, () => {
@@ -59,4 +56,3 @@ try {
   console.error(err)
   process.exitCode = 1
 }
-
