@@ -75,7 +75,7 @@ class PixelDrawer extends HTMLElement {
       if (this.currentTool === 'eraser') {
         drawContext.clearRect(gridX, gridY, size, size)
       } else {
-        drawContext.fillStyle = '#000'
+        drawContext.fillStyle = this.brushColor || '#000'
         drawContext.fillRect(gridX, gridY, size, size)
       }
     }
@@ -136,8 +136,13 @@ class PixelDrawer extends HTMLElement {
       this.currentTool = tool
     }
   }
+
   setBrushSize(size) {
     this.brushSize = parseInt(size, 10) || 1
+  }
+
+  setBrushColor(color) {
+    this.brushColor = color;
   }
 }
 )
