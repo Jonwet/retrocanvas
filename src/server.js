@@ -1,7 +1,7 @@
 import express from 'express'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { connectToDatabase } from './config/mongoose.js'
+import { connectToDatabase } from './config/mongoose.js' // lint complaining its not used but if i dont have this i don't get localhost to my defined port so idk.
 
 try {
   // Connect to MongoDB.

@@ -3,20 +3,42 @@ customElements.define('pixel-drawer',
 class PixelDrawer extends HTMLElement {
   constructor() {
     super()
+    this.currentTool = 'brush'
+    this.brushSize = 1
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = `
       <style>
+        #wrapper {
+          position: relative;
+          width: 512px;
+          height: 512px;
+        }
+
         canvas {
+          position: absolute;
+          top: 0;
+          left: 0;
           border: 1px solid #ccc;
         }
+
+        #drawCanvas {
+          background-color: transparent;
+        }
       </style>
-      <canvas id="canvas" width="512" height="512"></canvas>
+
+      <div id="wrapper">
+        <canvas id="gridCanvas" width="512" height="512"></canvas>
+        <canvas id="drawCanvas" width="512" height="512"></canvas>
+      </div>
     `
   }
 
   connectedCallback() {
-    const canvas = this.shadowRoot.querySelector('#canvas')
-    const context = canvas.getContext('2d')
+    const gridCanvas = this.shadowRoot.querySelector('#gridCanvas')
+    const drawCanvas = this.shadowRoot.querySelector('#drawCanvas')
+
+    const gridContext = gridCanvas.getContext('2d')
+    const drawContext = drawCanvas.getContext('2d')
 
     const pixelSize = 16
     let isDrawing = false
@@ -24,27 +46,40 @@ class PixelDrawer extends HTMLElement {
     let lastY = null
 
     const drawGrid = () => {
-      context.strokeStyle = '#ddd'
-      for (let x = 0; x < canvas.width; x += pixelSize) {
-        context.beginPath()
-        context.moveTo(x, 0)
-        context.lineTo(x, canvas.height)
-        context.stroke()
+      // Fill background white
+      gridContext.fillStyle = '#fff'
+      gridContext.fillRect(0, 0, gridCanvas.width, gridCanvas.height)
+
+      // Draw grid lines
+      gridContext.strokeStyle = '#ddd'
+      for (let x = 0; x < gridCanvas.width; x += pixelSize) {
+        gridContext.beginPath()
+        gridContext.moveTo(x, 0)
+        gridContext.lineTo(x, gridCanvas.height)
+        gridContext.stroke()
       }
-      for (let y = 0; y < canvas.height; y += pixelSize) {
-        context.beginPath()
-        context.moveTo(0, y)
-        context.lineTo(canvas.width, y)
-        context.stroke()
+      for (let y = 0; y < gridCanvas.height; y += pixelSize) {
+        gridContext.beginPath()
+        gridContext.moveTo(0, y)
+        gridContext.lineTo(gridCanvas.width, y)
+        gridContext.stroke()
       }
     }
 
     const drawPixel = (x, y) => {
-      const gridX = Math.floor(x / pixelSize) * pixelSize
-      const gridY = Math.floor(y / pixelSize) * pixelSize
-      context.fillStyle = '#000'
-      context.fillRect(gridX, gridY, pixelSize, pixelSize)
+      const size = pixelSize * this.brushSize
+    
+      const gridX = Math.floor((x - size / 2) / pixelSize) * pixelSize
+      const gridY = Math.floor((y - size / 2) / pixelSize) * pixelSize
+    
+      if (this.currentTool === 'eraser') {
+        drawContext.clearRect(gridX, gridY, size, size)
+      } else {
+        drawContext.fillStyle = '#000'
+        drawContext.fillRect(gridX, gridY, size, size)
+      }
     }
+    
 
     const drawLine = (x0, y0, x1, y1) => {
       const dx = x1 - x0
@@ -58,14 +93,14 @@ class PixelDrawer extends HTMLElement {
     }
 
     const getMousePos = (e) => {
-      const rect = canvas.getBoundingClientRect()
+      const rect = drawCanvas.getBoundingClientRect()
       return {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
       }
     }
 
-    canvas.addEventListener('mousedown', (e) => {
+    drawCanvas.addEventListener('mousedown', (e) => {
       isDrawing = true
       const { x, y } = getMousePos(e)
       drawPixel(x, y)
@@ -73,19 +108,19 @@ class PixelDrawer extends HTMLElement {
       lastY = y
     })
 
-    canvas.addEventListener('mouseup', () => {
+    drawCanvas.addEventListener('mouseup', () => {
       isDrawing = false
       lastX = null
       lastY = null
     })
 
-    canvas.addEventListener('mouseleave', () => {
+    drawCanvas.addEventListener('mouseleave', () => {
       isDrawing = false
       lastX = null
       lastY = null
     })
 
-    canvas.addEventListener('mousemove', (e) => {
+    drawCanvas.addEventListener('mousemove', (e) => {
       if (!isDrawing) return
       const { x, y } = getMousePos(e)
       drawLine(lastX, lastY, x, y)
@@ -94,6 +129,15 @@ class PixelDrawer extends HTMLElement {
     })
 
     drawGrid()
+  }
+
+  setTool(tool) {
+    if (['brush', 'eraser'].includes(tool)) {
+      this.currentTool = tool
+    }
+  }
+  setBrushSize(size) {
+    this.brushSize = parseInt(size, 10) || 1
   }
 }
 )
