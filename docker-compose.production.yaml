@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  mongodb:
+    # Production MongoDB with persistent volume
+    image: mongo:8.0.0
+    restart: always
+    volumes:
+      - /var/mongodb:/data/db
+
+  retrocanvas:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    image: retrocanvas
+    restart: always
+    depends_on:
+      - mongodb
+    environment:
+      NODE_ENV: production
+      BASE_URL: "/"
+      DB_CONNECTION_STRING: "mongodb://mongodb:27017/retrocanvas"
+      PORT: "3000"
+      SESSION_NAME: "retrocanvas"
+      SESSION_SECRET: "some-secret"
+      LOG_LEVEL: "info"
+      LOGGER_MORGAN_FORMAT_ADD_REMOTE: "true"
+    ports:
+      - "3000:3000"

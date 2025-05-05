@@ -1,0 +1,44 @@
+# -----------------------------
+# Base stage
+# -----------------------------
+    FROM node:20.17.0-bookworm-slim AS base
+
+    # Install dumb-init to handle PID 1 properly
+    RUN apt-get update && \
+        apt-get install -y --no-install-recommends dumb-init && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
+    
+    WORKDIR /usr/src/app
+    
+    # Install only production dependencies
+    COPY package*.json ./
+    RUN npm ci --omit=dev
+    
+    # -----------------------------
+    # Final stage
+    # -----------------------------
+    FROM node:20.17.0-bookworm-slim
+    
+    # Copy dumb-init from the base image
+    COPY --from=base /usr/bin/dumb-init /usr/bin/dumb-init
+    
+    # Set up working dir and permissions
+    WORKDIR /usr/src/app
+    RUN mkdir -p /var/log/retrocanvas && chown -R node:node /usr/src/app /var/log/retrocanvas
+    
+    # Copy app files and production dependencies
+    COPY --from=base --chown=node:node /usr/src/app/node_modules ./node_modules
+    COPY --chown=node:node . .
+    
+    # Drop root
+    USER node
+    
+    # Set envs and port
+    ARG EXPRESS_APP_PORT=3000
+    ENV NODE_ENV=production PORT=$EXPRESS_APP_PORT
+    EXPOSE $EXPRESS_APP_PORT
+    
+    # Start with dumb-init
+    CMD ["dumb-init", "node", "src/server.js"]
+    

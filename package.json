@@ -11,7 +11,9 @@
     "start": "node src/server.js",
     "dev": "nodemon --inspect --env-file=.env src/server.js",
     "lint": "npx eslint ./src || exit 0",
-    "lint:fix": "npx eslint ./src --fix || exit 0"
+    "lint:fix": "npx eslint ./src --fix || exit 0",
+    "docker:dev": "docker compose -p retrocanvas-dev -f docker-compose.yaml -f docker-compose.development.yaml up --build",
+    "docker:prod": "docker compose -p retrocanvas-prod -f docker-compose.yaml -f docker-compose.production.yaml up --build"
   },
   "contributors": [
     "Johan Leitet <johan.leitet@lnu.se>",

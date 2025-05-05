@@ -2,17 +2,14 @@ import express from 'express'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { connectToDatabase } from './config/mongoose.js' // lint complaining its not used but if i dont have this i don't get localhost to my defined port so idk.
+import { router } from './routes/router.js'
 
 try {
   // Connect to MongoDB.
-  // await connectToDatabase(process.env.DB_CONNECTION_STRING)
+  await connectToDatabase(process.env.DB_CONNECTION_STRING)
 
   // Creates an Express application.
   const app = express()
-
-  app.get('/', (req, res) => {
-    res.render('index') // Looks for views/index.ejs
-  })
 
   // Get the directory name of this module's path.
   const directoryFullName = dirname(fileURLToPath(import.meta.url))
@@ -40,7 +37,14 @@ try {
   app.use(express.urlencoded({ extended: false }))
 
   // Serve static files.
-  app.use(express.static(join(directoryFullName, '..', 'public')))
+  app.use(baseURL, express.static(join(directoryFullName, '..', 'public')))
+
+  app.use((req, res, next) => {
+    console.log('INCOMING REQUEST:', req.method, req.url)
+    next()
+  })
+
+  app.use(baseURL, router)
 
   // ---------------------------------------------------
   // ⚠️ WARNING: Development Environment Only!
