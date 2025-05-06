@@ -27,3 +27,4 @@ services:
       LOGGER_MORGAN_FORMAT_ADD_REMOTE: "true"
     ports:
       - "3000:3000"
+      - "8080:3000"
