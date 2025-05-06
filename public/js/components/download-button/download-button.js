@@ -12,7 +12,7 @@ customElements.define('download-button',
     renderButton () {
       const wrapper = document.createElement('div')
       const button = document.createElement('button')
-      button.textContent = 'Download Artwork'
+      button.textContent = 'Download'
 
       const style = document.createElement('style')
       style.textContent = `
@@ -20,19 +20,23 @@ customElements.define('download-button',
             margin-top: 16px;
           }
           button {
-            padding: 8px 16px;
-            font-size: 1rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid #ccc;
+            background: white;
             cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            background-color:rgb(0, 255, 234);
-            color: white;
+            font-size: 0.9rem;
           }
-          button:hover {
-            background-color:rgb(0, 255, 234);
-          }
+
+            .section {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
         `
 
+      wrapper.classList.add('section')
       wrapper.appendChild(button)
       this.shadowRoot.append(style, wrapper)
 
