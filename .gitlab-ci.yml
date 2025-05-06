@@ -65,6 +65,7 @@ deploy_production_job:
   before_script: *before_script_ssh_setup # Reuse SSH setup steps.
   script:
     - echo "Deploying to production..."
+    - docker compose -f docker-compose.yaml -f docker-compose.production.yaml down || true
     - docker compose -f docker-compose.yaml -f docker-compose.production.yaml up --build -d
   only:
     - main # Only run this job on the main branch.
