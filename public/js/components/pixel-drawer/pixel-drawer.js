@@ -109,7 +109,7 @@ customElements.define('pixel-drawer',
           event.preventDefault()
           const zoomAmount = 0.1
           this.scale = event.deltaY < 0
-            ? Math.min(this.scale + zoomAmount, 2.5)
+            ? Math.min(this.scale + zoomAmount, 1.25)
             : Math.max(this.scale - zoomAmount, 1)
           applyZoom()
         }

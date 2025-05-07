@@ -23,7 +23,7 @@ customElements.define('pixel-app',
         .app-container {
           display: flex;
           flex-direction: column;
-          height: 90%;
+          height: 100%;
         }
 
         .main-content {
@@ -49,18 +49,17 @@ customElements.define('pixel-app',
 
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* spacing between components */
+  gap: 1.5rem;
 }
 
 
-        .canvas-area {
-          flex: 1;
-          background: rgb(73, 73, 73);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          overflow: auto;
-        }
+.canvas-area {
+  flex: 1;
+  background: rgb(73, 73, 73);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
         .canvas-scroll-wrapper {
           position: relative;
@@ -69,7 +68,6 @@ customElements.define('pixel-app',
           align-items: center;
           width: 100%;
           height: 100%;
-          overflow: auto;
         }
       </style>
 
