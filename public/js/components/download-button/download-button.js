@@ -1,3 +1,5 @@
+import { cssTemplate } from './download-button.css.js'
+
 customElements.define('download-button',
 
   /* eslint-disable jsdoc/require-jsdoc */
@@ -6,6 +8,7 @@ customElements.define('download-button',
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
+      this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
       this.renderButton()
     }
 
@@ -14,31 +17,9 @@ customElements.define('download-button',
       const button = document.createElement('button')
       button.textContent = 'Download'
 
-      const style = document.createElement('style')
-      style.textContent = `
-          div {
-            margin-top: 16px;
-          }
-          button {
-            padding: 0.4rem 1rem;
-            border: 1px solid #ccc;
-            background: white;
-            cursor: pointer;
-            font-size: 0.9rem;
-          }
-
-            .section {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-        `
-
       wrapper.classList.add('section')
       wrapper.appendChild(button)
-      this.shadowRoot.append(style, wrapper)
+      this.shadowRoot.append(wrapper)
 
       button.addEventListener('click', () => {
         const format = this.getAttribute('format') || 'png'

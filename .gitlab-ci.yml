@@ -48,10 +48,11 @@ unit-test-job:
 # Job to lint the code in the test stage, can run in parallel with unit-test-job.
 lint-test-job:
   stage: test
+  image: node:20.17.0
+  before_script:
+    - npm ci
   script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 2 # Simulate linting time.
-    - echo "No lint issues found."
+    - npm run lint
 
 # Job to deploy to the production environment.
 deploy_production_job:
