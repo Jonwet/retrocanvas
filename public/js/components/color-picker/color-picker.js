@@ -1,3 +1,5 @@
+import { cssTemplate } from './color-picker.css.js'
+
 customElements.define('color-picker',
 
   /* eslint-disable jsdoc/require-jsdoc */
@@ -9,39 +11,13 @@ customElements.define('color-picker',
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
+      this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
       this.createColorPickerUI()
     }
 
     createColorPickerUI () {
       const wrapper = document.createElement('div')
       wrapper.setAttribute('class', 'color-picker')
-
-      const style = document.createElement('style')
-      style.textContent = `
-        .color-picker {
-          margin-top: 16px;
-          display: inline-block;
-        }
-    
-        label {
-          font-family: sans-serif;
-          margin-right: 8px;
-        }
-          
-  .section {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-    
-        input[type="color"] {
-          width: 128px;
-          height: 128px;
-          border: none;
-          padding: 0;
-        }
-      `
 
       wrapper.classList.add('section')
       const label = document.createElement('label')
@@ -54,7 +30,7 @@ customElements.define('color-picker',
       wrapper.appendChild(label)
       wrapper.appendChild(colorInput)
 
-      this.shadowRoot.append(style, wrapper)
+      this.shadowRoot.append(wrapper)
 
       colorInput.addEventListener('input', (event) => {
         const color = event.target.value

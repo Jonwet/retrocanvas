@@ -1,3 +1,6 @@
+import { cssTemplate } from './pixel-drawer.css.js'
+import { htmlTemplate } from './pixel-drawer.html.js'
+
 customElements.define('pixel-drawer',
 
   /* eslint-disable jsdoc/require-jsdoc */
@@ -14,46 +17,8 @@ customElements.define('pixel-drawer',
       this.redoStack = []
 
       this.attachShadow({ mode: 'open' })
-      this.shadowRoot.innerHTML = `
-        <style>
-          :host {
-            display: block;
-            width: auto;
-            height: auto;
-          }
-
-          #viewport {
-            width: auto;
-            height: auto;
-            overflow: visible;
-          }
-
-          #wrapper {
-            position: relative;
-            width: 512px;
-            height: 512px;
-          }
-
-          canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            border: none;
-            display: block;
-          }
-
-          #drawCanvas {
-            background-color: transparent;
-          }
-        </style>
-
-        <div id="viewport">
-          <div id="wrapper">
-            <canvas id="gridCanvas" width="512" height="512"></canvas>
-            <canvas id="drawCanvas" width="512" height="512"></canvas>
-          </div>
-        </div>
-      `
+      this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
+      this.shadowRoot.appendChild(htmlTemplate.content.cloneNode(true))
     }
 
     connectedCallback () {

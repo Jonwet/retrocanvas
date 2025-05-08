@@ -1,3 +1,6 @@
+import { cssTemplate } from './tool-selector.css.js'
+import { htmlTemplate } from './tool-selector.html.js'
+
 customElements.define('tool-selector',
 
   /* eslint-disable jsdoc/require-jsdoc */
@@ -9,66 +12,8 @@ customElements.define('tool-selector',
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
-
-      this.shadowRoot.innerHTML = `
-        <style>
-.tools {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.slider {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-  
-          button {
-            padding: 0.4rem 1rem;
-            border: 1px solid #ccc;
-            background: white;
-            cursor: pointer;
-            font-size: 0.9rem;
-          }
-  
-          button.active {
-            background: #eee;
-            border-color: #888;
-
-         .slider {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-          }
-        </style>
-  
-<div class="tools">
-  <div class="button-row">
-    <button id="brush" class="active">Brush</button>
-    <button id="eraser">Eraser</button>
-    <button id="clear">Clear</button>
-    <button id="undo">Undo</button>
-    <button id="redo">Redo</button>
-  </div>
-
-  <div class="slider">
-    <label for="brushSize">Size:</label>
-    <input id="brushSize" type="range" min="1" max="10" value="1">
-    <span id="sizeValue">1</span>
-  </div>
-</div>
-      `
+      this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
+      this.shadowRoot.appendChild(htmlTemplate.content.cloneNode(true))
     }
 
     connectedCallback () {

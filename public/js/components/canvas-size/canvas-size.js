@@ -1,3 +1,5 @@
+import { cssTemplate } from './canvas-size.css.js'
+
 customElements.define('canvas-size',
   /* eslint-disable jsdoc/require-jsdoc */
 
@@ -5,6 +7,7 @@ customElements.define('canvas-size',
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
+      this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
       this.render()
     }
 
@@ -22,27 +25,9 @@ customElements.define('canvas-size',
       const button = document.createElement('button')
       button.textContent = 'Set Size'
 
-      const style = document.createElement('style')
-      style.textContent = `
-      :host {
-        display: block;
-      }
-    
-      .section {
-        font-family: sans-serif;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-    
-      input {
-        width: 60px;
-      }
-    `
-
       wrapper.classList.add('section')
       wrapper.append(label, input, button)
-      this.shadowRoot.append(style, wrapper)
+      this.shadowRoot.append(wrapper)
 
       button.addEventListener('click', () => {
         const size = parseInt(input.value, 10)
