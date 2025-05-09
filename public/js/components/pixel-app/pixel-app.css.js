@@ -44,7 +44,7 @@ cssTemplate.innerHTML = `
 
     .canvas-area {
       flex: 1;
-      background: rgb(20, 20, 20);
+      background: rgb(77, 77, 77);
       display: flex;
       justify-content: center;
       align-items: center;
