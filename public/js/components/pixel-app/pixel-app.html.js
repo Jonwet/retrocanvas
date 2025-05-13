@@ -14,6 +14,7 @@ htmlTemplate.innerHTML = `
           <color-picker></color-picker>
           <download-button></download-button>
           <canvas-size></canvas-size>
+          <auth-buttons></auth-buttons>
     </div>
   </div>
 </div>

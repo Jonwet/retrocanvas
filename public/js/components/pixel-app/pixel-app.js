@@ -3,6 +3,7 @@ import '../tool-selector/index.js'
 import '../color-picker/index.js'
 import '../download-button/index.js'
 import '../canvas-size/index.js'
+import '../auth-buttons/index.js'
 import { cssTemplate } from './pixel-app.css.js'
 import { htmlTemplate } from './pixel-app.html.js'
 
