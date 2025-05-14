@@ -1,6 +1,6 @@
 /**
  * @file Defines the snippet router.
- * @module taskRouter
+ * @module UserModel
  * @author Jonatan Wetterberg
  */
 
