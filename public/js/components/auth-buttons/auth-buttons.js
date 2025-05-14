@@ -26,15 +26,6 @@ customElements.define('auth-buttons',
     }
 
     /**
-     * Fetches the authentication status from the server and updates the UI accordingly.
-     */
-    async loadStatus () {
-      const res = await fetch('/retro-canvas/auth/status', { credentials: 'include' })
-      const data = await res.json()
-      this.render(data.loggedIn)
-    }
-
-    /**
      * Updates the UI based on the authentication status.
      *
      * @param {boolean} isAuth - Indicates whether the user is authenticated.

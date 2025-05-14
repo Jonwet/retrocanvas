@@ -7,6 +7,19 @@
   <script type="module" src="js/index.js"></script>
 </head>
 <body>
-  <pixel-app></pixel-app>
+  <pixel-app>
+    <% if (!user) { %>
+      <div slot="auth">
+        <a href="/retro-canvas/auth/login">Login</a>
+        <a href="/retro-canvas/auth/register">Register</a>
+      </div>
+    <% } else { %>
+      <div slot="auth">
+        <form method="post" action="/retro-canvas/auth/logout">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+    <% } %>
+  </pixel-app>
 </body>
 </html>
