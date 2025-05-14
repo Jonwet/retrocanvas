@@ -54,24 +54,18 @@ customElements.define('auth-buttons',
           this.loadStatus()
         })
 
-        const galleryBtn = document.createElement('button')
-        galleryBtn.textContent = 'Gallery'
-        galleryBtn.addEventListener('click', () => {
-          window.location.href = '/gallery/view'
-        })
-
-        container.append(logoutBtn, galleryBtn)
+        container.append(logoutBtn)
       } else {
         const loginBtn = document.createElement('button')
         loginBtn.textContent = 'Login'
         loginBtn.addEventListener('click', () => {
-          window.location.href = '/auth/login'
+          window.location.href = '/retro-canvas/auth/login'
         })
 
         const registerBtn = document.createElement('button')
         registerBtn.textContent = 'Register'
         registerBtn.addEventListener('click', () => {
-          window.location.href = '/auth/register'
+          window.location.href = '/retro-canvas/auth/register'
         })
 
         container.append(loginBtn, registerBtn)

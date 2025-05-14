@@ -13,7 +13,7 @@ export class GalleryController {
   renderGalleryPage (req, res) {
     console.log('Rendering gallery view')
 
-    res.render('/retro-canvas/gallery/view')
+    res.render('gallery/view')
   }
 
   /**
