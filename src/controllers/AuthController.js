@@ -125,7 +125,7 @@ export class AuthController {
       }
       res.clearCookie('connect.sid')
       // Redirect directly to home after logout
-      res.redirect('/')
+      res.redirect('/retro-canvas/')
     })
   }
 
