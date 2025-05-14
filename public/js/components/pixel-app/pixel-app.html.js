@@ -17,7 +17,6 @@ htmlTemplate.innerHTML = `
           <auth-buttons></auth-buttons>
           <publish-button></publish-button>
           <nav-buttons></nav-buttons>
-
     </div>
   </div>
 </div>

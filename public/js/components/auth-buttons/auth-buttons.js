@@ -29,7 +29,7 @@ customElements.define('auth-buttons',
      * Fetches the authentication status from the server and updates the UI accordingly.
      */
     async loadStatus () {
-      const res = await fetch('/auth/status', { credentials: 'include' })
+      const res = await fetch('/retro-canvas/auth/status', { credentials: 'include' })
       const data = await res.json()
       this.render(data.loggedIn)
     }
@@ -47,7 +47,7 @@ customElements.define('auth-buttons',
         const logoutBtn = document.createElement('button')
         logoutBtn.textContent = 'Logout'
         logoutBtn.addEventListener('click', async () => {
-          await fetch('/auth/logout', {
+          await fetch('/retro-canvas/auth/logout', {
             method: 'POST',
             credentials: 'include'
           })
