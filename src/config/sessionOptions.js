@@ -6,8 +6,7 @@ export const sessionOptions = {
   saveUninitialized: false, // Don't save a created but not modified session.
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
-    sameSite: 'lax',
-    path: '/retro-canvas'
+    sameSite: 'lax'
   }
 }
 
