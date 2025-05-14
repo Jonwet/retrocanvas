@@ -33,13 +33,13 @@ export class AuthController {
       const { username, password } = req.body
       if (!username || !password) {
         req.session.flash = { type: 'danger', text: 'All fields are required!' }
-        return res.redirect('retrocanvas/auth/register')
+        return res.redirect('/retro-canvas/auth/register')
       }
 
       const existingUser = await UserModel.findOne({ username })
       if (existingUser) {
         req.session.flash = { type: 'danger', text: 'Username already exists!' }
-        return res.redirect('./register')
+        return res.redirect('/retro-canvas/auth/register')
       }
 
       const hashedPassword = await bcrypt.hash(password, 10)
@@ -47,11 +47,11 @@ export class AuthController {
       await UserModel.create({ username, password: hashedPassword })
 
       req.session.flash = { type: 'success', text: 'Registration successful! Please log in.' }
-      res.redirect('/retrocanvas/')
+      res.redirect('/retro-canvas/')
     } catch (error) {
       console.error(error)
       req.session.flash = { type: 'danger', text: 'Error registering user!' }
-      return res.redirect('retrocanvas/auth/register')
+      return res.redirect('/retro-canvas/auth/register')
     }
   }
 
@@ -77,28 +77,28 @@ export class AuthController {
       const { username, password } = req.body
       if (!username || !password) {
         req.session.flash = { type: 'danger', text: 'All fields are required!' }
-        return res.redirect('/retrocanvas/auth/login')
+        return res.redirect('/retro-canvas/auth/login')
       }
 
       const user = await UserModel.findOne({ username })
       if (!user) {
         req.session.flash = { type: 'danger', text: 'Invalid username or password!' }
-        return res.status(401).render('/retrocanvas/auth/login', { flash: req.session.flash })
+        return res.status(401).render('/retro-canvas/auth/login', { flash: req.session.flash })
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password)
       if (!passwordMatch) {
         req.session.flash = { type: 'danger', text: 'Invalid username or password!' }
-        return res.status(401).render('/retrocanvas/auth/login', { flash: req.session.flash })
+        return res.status(401).render('/retro-canvas/auth/login', { flash: req.session.flash })
       }
 
       req.session.user = { id: user._id, username: user.username }
       req.session.flash = { type: 'success', text: 'Logged in successfully!' }
-      res.redirect('/retrocanvas/')
+      res.redirect('/retro-canvas/')
     } catch (error) {
       console.error(error)
       req.session.flash = { type: 'danger', text: 'Error logging in!' }
-      return res.redirect('/retrocanvas/auth/login')
+      return res.redirect('/retro-canvas/auth/login')
     }
   }
 
@@ -113,7 +113,7 @@ export class AuthController {
     req.session.destroy((err) => {
       if (err) {
         console.error('Error destroying session:', err)
-        return res.redirect('./retrocanvas/')
+        return res.redirect('./retro-canvas/')
       }
       res.clearCookie('connect.sid')
       // Redirect directly to home after logout
