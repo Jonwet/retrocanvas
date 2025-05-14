@@ -94,7 +94,15 @@ export class AuthController {
 
       req.session.user = { id: user._id, username: user.username }
       req.session.flash = { type: 'success', text: 'Logged in successfully!' }
-      res.redirect('/retro-canvas/')
+
+      req.session.save((err) => {
+        if (err) {
+          console.error('Failed to save session:', err)
+          return res.status(500).send('Session error')
+        }
+
+        res.redirect('/retro-canvas/')
+      })
     } catch (error) {
       console.error(error)
       req.session.flash = { type: 'danger', text: 'Error logging in!' }

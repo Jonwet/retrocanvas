@@ -20,7 +20,7 @@ customElements.define('gallery-view',
      * Fetches a gallery of images and renders them in the shadow DOM.
      */
     async connectedCallback () {
-      const res = await fetch('/gallery')
+      const res = await fetch('/retro-canvas/gallery')
       const images = await res.json()
 
       this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
