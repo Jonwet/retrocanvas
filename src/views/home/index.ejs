@@ -8,7 +8,7 @@
 </head>
 <body>
   <pixel-app>
-    <% if (!user) { %>
+<% if (typeof user === 'undefined' || !user) { %>
       <div slot="auth">
         <a href="/retro-canvas/auth/login">Login</a>
         <a href="/retro-canvas/auth/register">Register</a>
