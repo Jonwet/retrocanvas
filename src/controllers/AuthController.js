@@ -123,7 +123,7 @@ export class AuthController {
         console.error('Error destroying session:', err)
         return res.redirect('./retro-canvas/')
       }
-      res.clearCookie('connect.sid')
+      res.clearCookie(process.env.SESSION_NAME || 'retro-canvas')
       // Redirect directly to home after logout
       res.redirect('/retro-canvas/')
     })
