@@ -59,6 +59,11 @@ try {
       res.locals.flash = req.session.flash
       delete req.session.flash
     }
+
+    // Pass the base URL to the views.
+    res.locals.baseURL = baseURL
+
+    next()
   })
 
   // Serve static files.
