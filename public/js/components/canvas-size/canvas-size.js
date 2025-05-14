@@ -1,9 +1,15 @@
 import { cssTemplate } from './canvas-size.css.js'
 
 customElements.define('canvas-size',
-  /* eslint-disable jsdoc/require-jsdoc */
 
+  /**
+   * Implements a custom element for selecting the canvas size.
+   */
   class CanvasSize extends HTMLElement {
+    /**
+     * Creates an instance of the CanvasSize custom element
+     * and attaches a shadow DOM to it.
+     */
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
@@ -11,6 +17,9 @@ customElements.define('canvas-size',
       this.render()
     }
 
+    /**
+     * Renders the canvas size selection interface inside the shadow DOM.
+     */
     render () {
       const wrapper = document.createElement('div')
       const label = document.createElement('label')

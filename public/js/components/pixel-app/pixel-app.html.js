@@ -15,6 +15,9 @@ htmlTemplate.innerHTML = `
           <download-button></download-button>
           <canvas-size></canvas-size>
           <auth-buttons></auth-buttons>
+          <publish-button></publish-button>
+          <nav-buttons></nav-buttons>
+
     </div>
   </div>
 </div>

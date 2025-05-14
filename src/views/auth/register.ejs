@@ -1,10 +1,29 @@
-<h1>Register</h1>
-<form method="post" action="/auth/register">
-  <label>Username</label>
-  <input type="text" name="username" required>
-  
-  <label>Password</label>
-  <input type="password" name="password" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <button type="submit">Register</button>
-</form>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script type="module" src="/js/components/nav-buttons/index.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Register</h1>
+
+    <form method="post" action="/auth/register">
+      <label>Username</label>
+      <input type="text" name="username" required>
+      
+      <label>Password</label>
+      <input type="password" name="password" required>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <nav-buttons></nav-buttons>
+  </main>
+</body>
+</html>

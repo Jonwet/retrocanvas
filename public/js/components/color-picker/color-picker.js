@@ -2,12 +2,13 @@ import { cssTemplate } from './color-picker.css.js'
 
 customElements.define('color-picker',
 
-  /* eslint-disable jsdoc/require-jsdoc */
-
   /**
-   *
+   * Implements a color picker component.
    */
   class ColorPicker extends HTMLElement {
+    /**
+     * Creates an instance of the ColorPicker component and initializes the shadow DOM.
+     */
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
@@ -15,6 +16,9 @@ customElements.define('color-picker',
       this.createColorPickerUI()
     }
 
+    /**
+     * Creates the UI for the color picker, including a label and a color input element.
+     */
     createColorPickerUI () {
       const wrapper = document.createElement('div')
       wrapper.setAttribute('class', 'color-picker')

@@ -128,7 +128,6 @@ export class AuthController {
    * @param {object} res - Express response object.
    */
   status (req, res) {
-    console.log('Session in /status:', req.session)
     if (req.session.user) {
       res.json({ loggedIn: true, user: req.session.user })
     } else {

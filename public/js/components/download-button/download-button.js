@@ -2,9 +2,13 @@ import { cssTemplate } from './download-button.css.js'
 
 customElements.define('download-button',
 
-  /* eslint-disable jsdoc/require-jsdoc */
-
+  /**
+   * Implements a download button component.
+   */
   class DownloadButton extends HTMLElement {
+    /**
+     * Creates an instance of the DownloadButton component and initializes its shadow DOM.
+     */
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
@@ -12,6 +16,9 @@ customElements.define('download-button',
       this.renderButton()
     }
 
+    /**
+     * Renders the download button and sets up its event listener for downloading the canvas content.
+     */
     renderButton () {
       const wrapper = document.createElement('div')
       const button = document.createElement('button')
