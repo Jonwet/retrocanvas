@@ -32,7 +32,7 @@ customElements.define('publish-button',
         const imageData = pixelDrawer.getMergedCanvas('image/png')
 
         try {
-          const res = await fetch('/gallery/publish', {
+          const res = await fetch('/retro-canvas/gallery/publish', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
