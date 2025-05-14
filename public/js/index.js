@@ -1,1 +1,1 @@
-import './components/pixel-app/index.js';
+import './components/pixel-app/index.js'

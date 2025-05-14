@@ -3,14 +3,21 @@ import '../tool-selector/index.js'
 import '../color-picker/index.js'
 import '../download-button/index.js'
 import '../canvas-size/index.js'
+import '../auth-buttons/index.js'
+import '../publish-button/index.js'
+import '../nav-buttons/index.js'
 import { cssTemplate } from './pixel-app.css.js'
 import { htmlTemplate } from './pixel-app.html.js'
 
 customElements.define('pixel-app',
 
-  /* eslint-disable jsdoc/require-jsdoc */
-
+  /**
+   * Implements a custom element that serves as the main application for a pixel art drawing tool.
+   */
   class extends HTMLElement {
+    /**
+     * Creates an instance of the pixel-app custom element and initializes its shadow DOM.
+     */
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
@@ -18,6 +25,9 @@ customElements.define('pixel-app',
       this.shadowRoot.appendChild(htmlTemplate.content.cloneNode(true))
     }
 
+    /**
+     * Called when the custom element is inserted into the DOM.
+     */
     connectedCallback () {
       const canvas = this.shadowRoot.querySelector('pixel-drawer')
 

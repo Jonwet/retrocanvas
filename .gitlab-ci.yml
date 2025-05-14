@@ -39,11 +39,13 @@ build-job:
 
 # Job to run unit tests in the test stage.
 unit-test-job:
-  stage: test # Runs after the build stage is successful.
+  stage: test
+  image: node:20.17.0
+  before_script:
+    - npm ci
   script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 2 # Simulate test time.
-    - echo "Code coverage is 90%"
+    - echo "Running unit tests with Jest..."
+    - npm test
 
 # Job to lint the code in the test stage, can run in parallel with unit-test-job.
 lint-test-job:

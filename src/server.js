@@ -1,7 +1,9 @@
 import express from 'express'
+import session from 'express-session'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { connectToDatabase } from './config/mongoose.js' // lint complaining its not used but if i dont have this i don't get localhost to my defined port so idk.
+import { sessionOptions } from './config/sessionOptions.js'
 import { router } from './routes/router.js'
 
 try {
@@ -35,6 +37,22 @@ try {
   // Parse requests of the content type application/x-www-form-urlencoded.
   // Populates the request object with a body object (req.body).
   app.use(express.urlencoded({ extended: false }))
+
+  app.use(session(sessionOptions))
+
+  // Middleware to be executed before the routes.
+  app.use((req, res, next) => {
+    // Flash messages - survives only a round trip.
+    if (req.session.flash) {
+      res.locals.flash = req.session.flash
+      delete req.session.flash
+    }
+
+    // Pass the base URL to the views.
+    res.locals.baseURL = baseURL
+
+    next()
+  })
 
   // Serve static files.
   app.use(baseURL, express.static(join(directoryFullName, '..', 'public')))

@@ -3,12 +3,13 @@ import { htmlTemplate } from './tool-selector.html.js'
 
 customElements.define('tool-selector',
 
-  /* eslint-disable jsdoc/require-jsdoc */
-
   /**
-   *
+   * Implements a tool selector component for a drawing application.
    */
   class extends HTMLElement {
+    /**
+     * Creates an instance of the ToolSelector component and initializes its shadow DOM.
+     */
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
@@ -16,6 +17,9 @@ customElements.define('tool-selector',
       this.shadowRoot.appendChild(htmlTemplate.content.cloneNode(true))
     }
 
+    /**
+     * Called when the custom element is inserted into the DOM.
+     */
     connectedCallback () {
       const brushBtn = this.shadowRoot.querySelector('#brush')
       const eraserBtn = this.shadowRoot.querySelector('#eraser')
@@ -25,6 +29,11 @@ customElements.define('tool-selector',
       const brushSizeInput = this.shadowRoot.querySelector('#brushSize')
       const sizeValue = this.shadowRoot.querySelector('#sizeValue')
 
+      /**
+       * Sets the active tool by toggling the 'active' class on the corresponding button.
+       *
+       * @param {string} tool - The name of the tool to activate ('brush' or 'eraser').
+       */
       const setActive = (tool) => {
         brushBtn.classList.toggle('active', tool === 'brush')
         eraserBtn.classList.toggle('active', tool === 'eraser')

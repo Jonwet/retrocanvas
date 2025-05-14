@@ -3,9 +3,13 @@ import { htmlTemplate } from './pixel-drawer.html.js'
 
 customElements.define('pixel-drawer',
 
-  /* eslint-disable jsdoc/require-jsdoc */
-
+  /**
+   * Implements a pixel drawer component for creating pixel art.
+   */
   class PixelDrawer extends HTMLElement {
+    /**
+     * Creates an instance of the pixel drawer component and initializes its properties.
+     */
     constructor () {
       super()
       this.currentTool = 'brush'
@@ -21,6 +25,9 @@ customElements.define('pixel-drawer',
       this.shadowRoot.appendChild(htmlTemplate.content.cloneNode(true))
     }
 
+    /**
+     * Called when the custom element is inserted into the DOM.
+     */
     connectedCallback () {
       const gridCanvas = this.shadowRoot.querySelector('#gridCanvas')
       const drawCanvas = this.shadowRoot.querySelector('#drawCanvas')
@@ -61,6 +68,10 @@ customElements.define('pixel-drawer',
       this.setCanvasSize(this.canvasSize)
 
       const viewport = this.shadowRoot.querySelector('#viewport')
+
+      /**
+       * Applies zoom to the grid and draw canvases.
+       */
       const applyZoom = () => {
         const scale = this.scale
         drawCanvas.style.transform = `scale(${scale})`
@@ -81,6 +92,9 @@ customElements.define('pixel-drawer',
       }, { passive: false })
     }
 
+    /**
+     * Draws the grid on the grid canvas.
+     */
     drawGrid () {
       const gridCanvas = this.shadowRoot.querySelector('#gridCanvas')
       const gridContext = gridCanvas.getContext('2d')
@@ -103,6 +117,12 @@ customElements.define('pixel-drawer',
       }
     }
 
+    /**
+     * Draws a pixel at the specified coordinates on the canvas.
+     *
+     * @param {number} x - The x-coordinate where the pixel should be drawn.
+     * @param {number} y - The y-coordinate where the pixel should be drawn.
+     */
     drawPixel (x, y) {
       const drawCanvas = this.shadowRoot.querySelector('#drawCanvas')
       const drawContext = drawCanvas.getContext('2d')
@@ -120,6 +140,14 @@ customElements.define('pixel-drawer',
       }
     }
 
+    /**
+     * Draws a line between two points on the canvas using the current tool.
+     *
+     * @param {number} x0 - The x-coordinate of the starting point.
+     * @param {number} y0 - The y-coordinate of the starting point.
+     * @param {number} x1 - The x-coordinate of the ending point.
+     * @param {number} y1 - The y-coordinate of the ending point.
+     */
     drawLine (x0, y0, x1, y1) {
       const dx = x1 - x0
       const dy = y1 - y0
@@ -131,6 +159,12 @@ customElements.define('pixel-drawer',
       }
     }
 
+    /**
+     * Gets the mouse position relative to the canvas, adjusted for scaling.
+     *
+     * @param {MouseEvent} event - The mouse event containing the position data.
+     * @returns {{x: number, y: number}} The x and y coordinates of the mouse position.
+     */
     getMousePos (event) {
       const drawCanvas = this.shadowRoot.querySelector('#drawCanvas')
       const rect = drawCanvas.getBoundingClientRect()
@@ -140,20 +174,41 @@ customElements.define('pixel-drawer',
       }
     }
 
+    /**
+     * Sets the current drawing tool to either 'brush' or 'eraser'.
+     *
+     * @param {string} tool - The name of the tool to set ('brush' or 'eraser').
+     */
     setTool (tool) {
       if (['brush', 'eraser'].includes(tool)) {
         this.currentTool = tool
       }
     }
 
+    /**
+     * Sets the size of the brush used for drawing pixels.
+     *
+     * @param {number} size - The size of the brush in pixels.
+     */
     setBrushSize (size) {
       this.brushSize = parseInt(size, 10) || 1
     }
 
+    /**
+     * Sets the brush color used for drawing pixels.
+     *
+     * @param {string} color - The color to set for the brush, specified as a CSS color string.
+     */
     setBrushColor (color) {
       this.brushColor = color
     }
 
+    /**
+     * Merges the grid and draw canvases into a single image and returns it as a data URL.
+     *
+     * @param {string} format - The image format for the output (e.g., 'image/png').
+     * @returns {string} The data URL of the merged canvas image.
+     */
     getMergedCanvas (format = 'image/png') {
       const gridCanvas = this.shadowRoot.querySelector('#gridCanvas')
       const drawCanvas = this.shadowRoot.querySelector('#drawCanvas')
@@ -169,6 +224,11 @@ customElements.define('pixel-drawer',
       return mergedCanvas.toDataURL(format)
     }
 
+    /**
+     * Sets the size of the canvas and adjusts the pixel size accordingly.
+     *
+     * @param {number} size - The number of pixels along one side of the canvas.
+     */
     setCanvasSize (size) {
       this.canvasSize = size
       const maxCanvasPx = 1024
@@ -178,6 +238,9 @@ customElements.define('pixel-drawer',
       this.drawGrid()
     }
 
+    /**
+     * Resizes the canvas and its wrapper to fit the specified pixel size.
+     */
     resizeCanvas () {
       const px = this.pixelSize
       const sizePx = this.canvasSize * px
@@ -193,6 +256,9 @@ customElements.define('pixel-drawer',
       wrapper.style.height = `${sizePx}px`
     }
 
+    /**
+     * Clears the drawing canvas and saves the current state to the undo stack.
+     */
     clearCanvas () {
       this.saveState()
       const drawCanvas = this.shadowRoot.querySelector('#drawCanvas')
@@ -200,6 +266,9 @@ customElements.define('pixel-drawer',
       ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height)
     }
 
+    /**
+     * Saves the current state of the drawing canvas to the undo stack.
+     */
     saveState () {
       const drawCanvas = this.shadowRoot.querySelector('#drawCanvas')
       const dataUrl = drawCanvas.toDataURL()
@@ -208,6 +277,9 @@ customElements.define('pixel-drawer',
       if (this.undoStack.length > 50) this.undoStack.shift()
     }
 
+    /**
+     * Undoes the last action by restoring the previous state from the undo stack.
+     */
     undo () {
       if (this.undoStack.length === 0) return
 
@@ -219,6 +291,10 @@ customElements.define('pixel-drawer',
       this.redoStack.push(currentState)
 
       const img = new Image()
+
+      /**
+       * Loads the previous state from the undo stack and applies it to the canvas.
+       */
       img.onload = () => {
         ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height)
         ctx.drawImage(img, 0, 0)
@@ -226,6 +302,9 @@ customElements.define('pixel-drawer',
       img.src = prevState
     }
 
+    /**
+     * Redoes the last undone action by restoring the next state from the redo stack.
+     */
     redo () {
       if (this.redoStack.length === 0) return
 
@@ -237,6 +316,10 @@ customElements.define('pixel-drawer',
       this.undoStack.push(currentState)
 
       const img = new Image()
+
+      /**
+       * Loads the next state from the redo stack and applies it to the canvas.
+       */
       img.onload = () => {
         ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height)
         ctx.drawImage(img, 0, 0)
