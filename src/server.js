@@ -44,13 +44,6 @@ try {
     next()
   })
 
-  app.use((req, res, next) => {
-    console.log('SESSION DEBUG:')
-    console.log('Session ID:', req.sessionID)
-    console.log('Session contents:', req.session)
-    next()
-  })
-
   // Parse requests of the content type application/x-www-form-urlencoded.
   // Populates the request object with a body object (req.body).
   app.use(express.urlencoded({ extended: false }))

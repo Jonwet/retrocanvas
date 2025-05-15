@@ -3,3 +3,13 @@ html, body {
   height: 100vh;
   overflow: hidden;
 }
+
+a {
+  display: inline-block;
+  padding: 8px 16px;
+  background: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 4px;
+}
+

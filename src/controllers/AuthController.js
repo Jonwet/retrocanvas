@@ -83,13 +83,13 @@ export class AuthController {
       const user = await UserModel.findOne({ username })
       if (!user) {
         req.session.flash = { type: 'danger', text: 'Invalid username or password!' }
-        return res.status(401).render('/retro-canvas/auth/login', { flash: req.session.flash })
+        return res.status(401).render('auth/login', { flash: req.session.flash })
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password)
       if (!passwordMatch) {
         req.session.flash = { type: 'danger', text: 'Invalid username or password!' }
-        return res.status(401).render('/retro-canvas/auth/login', { flash: req.session.flash })
+        return res.status(401).render('auth/login', { flash: req.session.flash })
       }
 
       req.session.user = { id: user._id, username: user.username }
