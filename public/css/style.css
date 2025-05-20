@@ -13,13 +13,6 @@ a {
   border-radius: 4px;
 }
 
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .alert {
   padding: 12px 20px;
   margin-bottom: 20px;
@@ -51,24 +44,14 @@ a {
   border-color: #b6effb;
 }
 
-
-pre {
-  background-color: #797979;
-  border-radius: 6px;
-  padding: 16px;
-  margin: 16px 0;
-}
-
-pre code {
-  font-size: 14px;
-  line-height: 1.45;
-  white-space: pre;
-  word-break: normal;
-  word-wrap: normal;
-}
-
-.card-body pre {
-  margin: 20px 0;
+.flash {
+  margin: 1rem auto;
+  max-width: 400px;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #ffefc0;
+  border: 1px solid #ffd700;
 }
 
 form {
