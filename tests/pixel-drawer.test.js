@@ -19,6 +19,6 @@ describe('PixelDrawer', () => {
     expect(drawer.currentTool).toBe('eraser')
 
     drawer.setTool('invalidTool')
-    expect(drawer.currentTool).toBe('eraser') // unchanged
+    expect(drawer.currentTool).toBe('eraser')
   })
 })

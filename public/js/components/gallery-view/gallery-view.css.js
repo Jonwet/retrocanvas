@@ -1,8 +1,30 @@
 export const cssTemplate = document.createElement('template')
 cssTemplate.innerHTML = `
-<style>
-    .gallery { display: flex; flex-wrap: wrap; gap: 1rem; padding: 1rem; }
-    .item img { max-width: 200px; border: 1px solid #ccc; }
-    .item p { text-align: center; color: white; }
-</style>
+  <style>
+    :host {
+      display: block;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+  </style>
 `
