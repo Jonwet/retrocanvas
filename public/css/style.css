@@ -7,9 +7,17 @@ html, body {
 a {
   display: inline-block;
   padding: 8px 16px;
+  background: white;
   color: black;
   text-decoration: none;
   border-radius: 4px;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .alert {
@@ -41,6 +49,26 @@ a {
   color: #055160;
   background-color: #cff4fc;
   border-color: #b6effb;
+}
+
+
+pre {
+  background-color: #797979;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+pre code {
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+}
+
+.card-body pre {
+  margin: 20px 0;
 }
 
 form {
