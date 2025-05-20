@@ -41,8 +41,16 @@ cssTemplate.innerHTML = `
 
     .modal-content {
       position: relative;
+      padding: 1rem;
+      border-radius: 0.5rem;
     }
-      
+
+    .modal-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.25rem;
+    }
+
     .modal .close {
       position: absolute;
       top: 10px;

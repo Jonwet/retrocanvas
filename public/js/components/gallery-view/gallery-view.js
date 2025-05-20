@@ -30,11 +30,11 @@ customElements.define('gallery-view',
         if (e.target.tagName === 'IMG') {
           const modal = document.createElement('div')
           modal.classList.add('modal')
-          modal.innerHTML = `
-        <div class="modal-content">
-          <img src="${e.target.src}" />
-          <button class="close">✖</button>
-        </div>
+          modal.innerHTML = modal.innerHTML = `
+      <div class="modal-content">
+        <button class="close" aria-label="Close modal">✖</button>
+        <img src="${e.target.src}" alt="Enlarged image" />
+      </div>
       `
           modal.querySelector('.close').addEventListener('click', () => modal.remove())
           this.shadowRoot.appendChild(modal)
