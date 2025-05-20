@@ -26,19 +26,33 @@ customElements.define('gallery-view',
       this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
       this.shadowRoot.appendChild(createGalleryTemplate(images).content.cloneNode(true))
 
-      this.shadowRoot.addEventListener('click', async e => {
-        if (e.target.tagName === 'IMG') {
-          const modal = document.createElement('div')
-          modal.classList.add('modal')
-          modal.innerHTML = modal.innerHTML = `
+      this.shadowRoot.addEventListener('click', e => {
+        const clickedImage = e.target.closest('img')
+        const galleryItem = e.target.closest('.item')
+        if (!clickedImage || !galleryItem) return
+
+        const modal = document.createElement('div')
+        modal.classList.add('modal')
+        modal.innerHTML = `
       <div class="modal-content">
         <button class="close" aria-label="Close modal">✖</button>
-        <img src="${e.target.src}" alt="Enlarged image" />
+        <img src="${clickedImage.src}" alt="Enlarged image" />
       </div>
-      `
-          modal.querySelector('.close').addEventListener('click', () => modal.remove())
-          this.shadowRoot.appendChild(modal)
-        }
+    `
+
+        // Stop propagation inside modal-content to avoid reopening
+        modal.querySelector('.modal-content').addEventListener('click', e => {
+          e.stopPropagation()
+        })
+
+        // Close modal when clicking outside modal-content
+        modal.addEventListener('click', () => modal.remove())
+
+        // Close modal when clicking ✖
+        modal.querySelector('.close').addEventListener('click', () => modal.remove())
+
+        // Append to shadow DOM
+        this.shadowRoot.appendChild(modal)
       })
     }
   }
