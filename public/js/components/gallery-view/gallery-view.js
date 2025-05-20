@@ -25,6 +25,21 @@ customElements.define('gallery-view',
 
       this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
       this.shadowRoot.appendChild(createGalleryTemplate(images).content.cloneNode(true))
+
+      this.shadowRoot.addEventListener('click', async e => {
+        if (e.target.tagName === 'IMG') {
+          const modal = document.createElement('div')
+          modal.classList.add('modal')
+          modal.innerHTML = `
+        <div class="modal-content">
+          <img src="${e.target.src}" />
+          <button class="close">✖</button>
+        </div>
+      `
+          modal.querySelector('.close').addEventListener('click', () => modal.remove())
+          this.shadowRoot.appendChild(modal)
+        }
+      })
     }
   }
 )

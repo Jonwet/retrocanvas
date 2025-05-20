@@ -27,5 +27,30 @@ cssTemplate.innerHTML = `
     .gallery img:hover {
       transform: scale(1.05);
     }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      position: relative;
+    }
+      
+    .modal .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
   </style>
 `
