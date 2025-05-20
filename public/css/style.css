@@ -2,6 +2,8 @@ html, body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
+  background: rgb(50, 50, 50);
+  color: #222;
 }
 
 a {
