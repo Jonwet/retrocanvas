@@ -60,23 +60,10 @@ cssTemplate.innerHTML = `
 
     ::slotted([slot="auth"]) {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
       gap: 1rem;
       margin: 1rem;
-    }
-
-    ::slotted([slot="auth"] form) {
-      display: flex;
-      align-items: center;
-    }
-
-    ::slotted([slot="auth"] button) {
-      padding: 0.5rem 1rem;
-      background-color: #007acc;
-      border: none;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
+      background: rgb(50, 50, 50);
     }
   </style>
 `
