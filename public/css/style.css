@@ -2,7 +2,7 @@ html, body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
-  background: rgb(50, 50, 50);
+  background: rgb(20, 20, 20);
   color: #222;
 }
 
@@ -53,9 +53,10 @@ form {
   max-width: 400px;
   margin: 2rem auto;
   padding: 2rem;
-  background: #fff;
+  background: rgb(50, 50, 50);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  color: white;
 }
 
 input[type="text"],

@@ -2,13 +2,13 @@ export const cssTemplate = document.createElement('template')
 cssTemplate.innerHTML = `
   <style>
     :host {
-      display: block;
+      display: flex;
       font-family: sans-serif;
       color: black;
+      gap: 1rem;
       margin-top: 2rem;
+      justify-content: center;
     }
-
-
 
     a {
       padding: 0.5rem 1rem;

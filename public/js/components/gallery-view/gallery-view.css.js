@@ -4,11 +4,12 @@ cssTemplate.innerHTML = `
     :host {
       display: block;
       padding: 1rem;
-      background: #fff;
+      background: rgb(50, 50, 50);
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      max-width: 1400px;
+      max-width: 800px;
       margin: auto;
+      color: white;
     }
 
     .gallery {
