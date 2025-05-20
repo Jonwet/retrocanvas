@@ -5,12 +5,13 @@
   <title>Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/retro-canvas/css/style.css">
 
   <script type="module" src="/retro-canvas/js/index.js"></script>
 </head>
 <body>
   <main>
+    <nav-buttons></nav-buttons>
     <%- include('../partials/flash') %>
 
     <form method="post" action="/retro-canvas/auth/register">
@@ -23,7 +24,6 @@
       <button type="submit">Register</button>
     </form>
 
-    <nav-buttons></nav-buttons>
   </main>
 </body>
 </html>

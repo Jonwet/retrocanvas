@@ -8,13 +8,13 @@ export function createGalleryTemplate (images) {
   const template = document.createElement('template')
   template.innerHTML = `
     <div class="gallery">
+      <nav-buttons></nav-buttons>
       ${images.map(img => `
         <div class="item">
           <img src="${img.imageData}" alt="Artwork by ${img.user}" />
           <p>${img.user}</p>
         </div>
       `).join('')}
-      <nav-buttons></nav-buttons>
     </div>
   `
   return template
