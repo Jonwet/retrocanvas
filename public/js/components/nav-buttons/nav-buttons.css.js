@@ -5,7 +5,7 @@ cssTemplate.innerHTML = `
       display: flex;
       font-family: sans-serif;
       color: black;
-      gap: 1rem;
+      gap: 2rem;
       margin-top: 2rem;
       justify-content: center;
     }
