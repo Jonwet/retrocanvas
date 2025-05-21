@@ -61,12 +61,10 @@ export class GalleryController {
    */
   async deletePost (req, res) {
     try {
-      console.log('SESSION USER:', req.session.user)
-      if (req.doc.user !== req.session.user) {
-        req.session.flash = {
-          type: 'danger',
-          text: 'You are not authorized to delete this image.'
-        }
+      console.log('SESSION USER:', req.session.user) // TODO: Remove this line
+      if (req.doc.user.toString() !== req.session.user.id) {
+        req.session.flash = { type: 'danger', text: 'You are not authorized to delete this snippet.' }
+
         return res.status(403).render('gallery/delete', {
           image: req.doc,
           flash: req.session.flash,
