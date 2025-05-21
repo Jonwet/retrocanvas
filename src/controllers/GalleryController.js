@@ -96,7 +96,7 @@ export class GalleryController {
 
       req.session.flash = { type: 'success', text: 'The snippet was deleted successfully.' }
 
-      res.redirect('/retro-canvas/gallery')
+      res.redirect('/retro-canvas/gallery/view')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
     }
