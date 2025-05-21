@@ -22,7 +22,6 @@ customElements.define('gallery-view',
     async connectedCallback () {
       const res = await fetch('/retro-canvas/gallery')
       const images = await res.json()
-      console.log('Fetched images:', images)
 
       this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
       this.shadowRoot.appendChild(createGalleryTemplate(images).content.cloneNode(true))
