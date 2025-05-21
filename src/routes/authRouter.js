@@ -1,5 +1,5 @@
 /**
- * @file Defines the snippet router.
+ * @file Defines the auth router.
  * @module taskRouter
  * @author Jonatan Wetterberg
  */

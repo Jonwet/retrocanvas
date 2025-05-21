@@ -82,19 +82,19 @@ export class GalleryController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
-   * @returns {undefined} - Does not return a value, redirects to the snippets list.
+   * @returns {undefined} - Does not return a value, redirects to the gallery.
    */
   async deletePost (req, res) {
     try {
       if (req.doc.user !== req.session.user.username) {
-        req.session.flash = { type: 'danger', text: 'You are not authorized to delete this snippet.' }
+        req.session.flash = { type: 'danger', text: 'You are not authorized to delete this image.' }
 
-        return res.status(403).render('gallery/gallery', { snippet: req.doc, flash: req.session.flash, viewData: req.doc })
+        return res.status(403).render('gallery/gallery', { image: req.doc, flash: req.session.flash, viewData: req.doc })
       }
 
       await req.doc.deleteOne()
 
-      req.session.flash = { type: 'success', text: 'The snippet was deleted successfully.' }
+      req.session.flash = { type: 'success', text: 'The image was deleted successfully.' }
 
       res.redirect('/retro-canvas/gallery/view')
     } catch (error) {

@@ -1,5 +1,5 @@
 /**
- * @file Defines the snippet router.
+ * @file Defines the User model.
  * @module UserModel
  * @author Jonatan Wetterberg
  */
