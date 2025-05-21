@@ -5,6 +5,31 @@ import { GalleryModel } from '../models/GalleryModel.js'
  */
 export class GalleryController {
   /**
+   * Loads a gallery document by its ID and attaches it to the request object.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   * @param {string} id - The ID of the gallery document to load.
+   */
+  async loadGalleryDocument (req, res, next, id) {
+    try {
+      const galleryDoc = await GalleryModel.findById(id)
+
+      if (!galleryDoc) {
+        const error = new Error('Image not found.')
+        error.status = 404
+        throw error
+      }
+
+      req.doc = galleryDoc
+      next()
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
    * Renders the gallery page.
    *
    * @param {object} req - Express request object.
@@ -64,14 +89,14 @@ export class GalleryController {
       if (req.doc.user.toString() !== req.session.user.id) {
         req.session.flash = { type: 'danger', text: 'You are not authorized to delete this snippet.' }
 
-        return res.status(403).render('snippets/delete', { snippet: req.doc, flash: req.session.flash, viewData: req.doc })
+        return res.status(403).render('gallery/gallery', { snippet: req.doc, flash: req.session.flash, viewData: req.doc })
       }
 
       await req.doc.deleteOne()
 
       req.session.flash = { type: 'success', text: 'The snippet was deleted successfully.' }
 
-      res.redirect('..')
+      res.redirect('/retro-canvas/gallery')
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
     }
