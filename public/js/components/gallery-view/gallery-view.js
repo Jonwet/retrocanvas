@@ -40,18 +40,14 @@ customElements.define('gallery-view',
       </div>
     `
 
-        // Stop propagation inside modal-content to avoid reopening
         modal.querySelector('.modal-content').addEventListener('click', e => {
           e.stopPropagation()
         })
 
-        // Close modal when clicking outside modal-content
         modal.addEventListener('click', () => modal.remove())
 
-        // Close modal when clicking ✖
         modal.querySelector('.close').addEventListener('click', () => modal.remove())
 
-        // Append to shadow DOM
         this.shadowRoot.appendChild(modal)
       })
     }
