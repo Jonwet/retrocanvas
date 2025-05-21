@@ -61,6 +61,7 @@ export class GalleryController {
    */
   async deletePost (req, res) {
     try {
+      console.log('SESSION USER:', req.session.user)
       if (req.doc.user !== req.session.user) {
         req.session.flash = {
           type: 'danger',
