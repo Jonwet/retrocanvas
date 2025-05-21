@@ -12,7 +12,8 @@ export function createGalleryTemplate (images) {
         <div class="item">
           <img src="${img.imageData}" alt="Artwork by ${img.user}" />
           <p>${img.user}</p>
-          <form method="POST" action="/retro-canvas/gallery/${img._id}/delete">
+          <p>DEBUG: img._id = ${this.img?._id}</p>
+          <form method="POST" action="/retro-canvas/gallery/${this.img?._id}/delete">
             <button type="submit">Delete</button>
           </form>
         </div>
