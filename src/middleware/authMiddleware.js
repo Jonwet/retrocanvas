@@ -18,7 +18,5 @@ export function isAuthenticated (req, res, next) {
   }
 
   req.session.flash = { type: 'danger', text: 'Please log in first!' }
-  return res.status(404).render('home', {
-    flash: req.session.flash
-  })
+  return res.redirect('/retro-canvas/gallery')
 }

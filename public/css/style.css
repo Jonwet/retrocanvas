@@ -66,3 +66,11 @@ input[type="password"] {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+button {
+  padding: 0.4rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
