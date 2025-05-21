@@ -51,4 +51,33 @@ export class GalleryController {
     const images = await GalleryModel.find().sort({ createdAt: -1 }).limit(50)
     res.json(images)
   }
+
+  /**
+   * Deletes the specified image.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @returns {undefined} - Does not return a value, redirects to the snippets list.
+   */
+  async deletePost (req, res) {
+    try {
+      if (req.doc.user.toString() !== req.session.user.id) {
+        req.session.flash = { type: 'danger', text: 'You are not authorized to delete this snippet.' }
+
+        return res.status(403).render('gallery/delete', {
+          image: req.doc,
+          flash: req.session.flash,
+          viewData: req.doc
+        })
+      }
+
+      await req.doc.deleteOne()
+
+      req.session.flash = { type: 'success', text: 'The snippet was deleted successfully.' }
+
+      res.redirect('..')
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: error.message }
+    }
+  }
 }
